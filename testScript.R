@@ -216,3 +216,9 @@ set.seed(415)
 fit2 <- randomForest(logcas ~hour + day_type+day+humidity+atemp+temp_cas+windspeed+season+weather+holiday+workingday+dp_cas+weekend+year+year_part, data=train,importance=TRUE, ntree=250)
 pred2=predict(fit2,test)
 test$logcas=pred2
+
+test$registered=exp(test$logreg)-1
+test$casual=exp(test$logcas)-1
+test$count=test$casual+test$registered
+s<-data.frame(datetime=test$datetime,demand=test$count)
+write.csv(s,file="submit.csv",row.names=FALSE)

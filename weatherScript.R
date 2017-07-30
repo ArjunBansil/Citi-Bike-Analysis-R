@@ -8,8 +8,8 @@ y_axis <- "count"
 color  <- "temp_f" # for example swap this to "humidity"
 
 # The competition data is stored in the ../input directory
-train <- read.csv("../input/train.csv")
-test  <- read.csv("../input/test.csv")
+train <- read.csv("train.csv")
+test  <- read.csv("input/test.csv")
 
 # Write some basic stats to the log
 cat("Number of training rows ", nrow(train), "\n")
@@ -26,12 +26,13 @@ p <- ggplot2::ggplot(train[train$workingday==1,], aes_string(x=x_axis, y=y_axis,
   geom_point(position=position_jitter(w=0.0, h=0.4)) +
   theme_light(base_size=20) +
   xlab("Hour of the Day") +
-  scales::scale_x_datetime(breaks = date_breaks("4 hours"), labels=date_format("%I:%M %p")) + 
+  scale_x_datetime(breaks = date_breaks("4 hours"), labels=date_format("%I:%M %p")) + 
   ylab("Number of Bike Rentals") +
   scale_colour_gradientn("Temp (°F)", colours=c("#5e4fa2", "#3288bd", "#66c2a5", "#abdda4", "#e6f598", "#fee08b", "#fdae61", "#f46d43", "#d53e4f", "#9e0142")) +
   ggtitle("On workdays, most bikes are rented on warm mornings and evenings\n") +
   theme(plot.title=element_text(size=18))
 
 print(p)
+
 
 
