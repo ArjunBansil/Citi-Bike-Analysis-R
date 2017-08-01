@@ -6,6 +6,13 @@
 #
 
 library(shiny)
+library(ggplot2)
+library(dplyr)
+library(sparklyr)
+
+sc = spark_connect(master="local")
+
+pred_tbl = spark_read_csv(sc, name = "predicted", path = "submit.csv")
 
 ui = fluidPage(
 
